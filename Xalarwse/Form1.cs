@@ -19,19 +19,32 @@ namespace Xalarwse
         }
 
         SimpleTcpClient client;
+        public string userName = "user";
+        public string receivedUserName = "other user";
+        public Color receivedUserColor = Color.Blue;
+        bool demoMode = true;
 
         private void Form1_Load(object sender, EventArgs e)
         {
             client = new SimpleTcpClient();
             client.StringEncoder = Encoding.UTF8;
             client.DataReceived += Client_DataReceived;
+            if (userName.Length <= 16)
+                userLabel.Text = userName;
+            else
+                userLabel.Text = userName.Substring(0, 15);
+            MessageBox.Show("You are not logged in. Please log in.");
         }
 
         private void Client_DataReceived(object sender, SimpleTCP.Message e)
         {
-            richTextBox1.Invoke((MethodInvoker)delegate () //richTextBox1 = txtStatus
+            mainTextBox.Invoke((MethodInvoker)delegate ()
             {
-                richTextBox1.Text += e.MessageString;
+                mainTextBox.SelectionColor = receivedUserColor;
+                mainTextBox.AppendText($"{receivedUserName}: ");
+                mainTextBox.SelectionColor = Color.Black;
+                mainTextBox.AppendText(e.MessageString + "\n");
+                msgTextBox.Text = "";
             });
         }
 
@@ -45,15 +58,18 @@ namespace Xalarwse
 
         }
 
-        private void button1_Click(object sender, EventArgs e) //button 1 = send
+        private void btnSend_Click(object sender, EventArgs e)
         {
-            client.WriteLineAndGetReply(textBox1.Text,TimeSpan.FromSeconds(3));
-
-            /*richTextBox1.SelectionColor = Color.Green;
-            richTextBox1.AppendText("Gera: ");
-            richTextBox1.SelectionColor = Color.Black;
-            richTextBox1.AppendText(textBox1.Text + "\n");
-            textBox1.Text = "";*/ //old dummy sending
+            if(demoMode)
+            {
+                mainTextBox.SelectionColor = Color.Green;
+                mainTextBox.AppendText($"{userName}: ");
+                mainTextBox.SelectionColor = Color.Black;
+                mainTextBox.AppendText(mainTextBox.Text + "\n");
+                msgTextBox.Text = "";
+            }
+            else
+            client.WriteLineAndGetReply(msgTextBox.Text,TimeSpan.FromSeconds(3));
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -63,16 +79,16 @@ namespace Xalarwse
 
         private void button2_Click(object sender, EventArgs e) //button 2 = debug
         {
-            richTextBox1.SelectionColor = Color.Blue;
-            richTextBox1.AppendText("JaJ: ");
-            richTextBox1.SelectionColor = Color.Black;
-            richTextBox1.AppendText("geia xalarwse :-)" + "\n");
+            mainTextBox.SelectionColor = receivedUserColor;
+            mainTextBox.AppendText("JaJ: ");
+            mainTextBox.SelectionColor = Color.Black;
+            mainTextBox.AppendText("geia xalarwse :-)" + "\n");
         }
 
         private void button3_Click(object sender, EventArgs e) //button 3 = connect button
         {
             button3.Enabled = false;
-            client.Connect(textBox2.Text, Convert.ToInt32(8910));
+            client.Connect(Convert.ToString("127.0.0.1"), Convert.ToInt32(8910)); //MUST TEST IP CONNECTION TO SERVER
         }
 
     }
