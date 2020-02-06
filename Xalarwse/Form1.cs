@@ -40,11 +40,14 @@ namespace Xalarwse
         {
             mainTextBox.Invoke((MethodInvoker)delegate ()
             {
-                mainTextBox.SelectionColor = receivedUserColor;
-                mainTextBox.AppendText($"{receivedUserName}: ");
-                mainTextBox.SelectionColor = Color.Black;
-                mainTextBox.AppendText(e.MessageString + "\n");
-                msgTextBox.Text = "";
+                if (!demoMode)
+                {
+                    mainTextBox.SelectionColor = receivedUserColor;
+                    mainTextBox.AppendText($"{receivedUserName}: ");
+                    mainTextBox.SelectionColor = Color.Black;
+                    mainTextBox.AppendText(e.MessageString + "\n");
+                    msgTextBox.Text = "";
+                }
             });
         }
 
@@ -62,11 +65,14 @@ namespace Xalarwse
         {
             if(demoMode)
             {
-                mainTextBox.SelectionColor = Color.Green;
-                mainTextBox.AppendText($"{userName}: ");
-                mainTextBox.SelectionColor = Color.Black;
-                mainTextBox.AppendText(mainTextBox.Text + "\n");
-                msgTextBox.Text = "";
+                if (msgTextBox.Text!="") //TODO: button is gray unless text present in field
+                {
+                    mainTextBox.SelectionColor = Color.Green;
+                    mainTextBox.AppendText($"{userName}: ");
+                    mainTextBox.SelectionColor = Color.Black;
+                    mainTextBox.AppendText(msgTextBox.Text + "\n");
+                    msgTextBox.Text = "";
+                }
             }
             else
             client.WriteLineAndGetReply(msgTextBox.Text,TimeSpan.FromSeconds(3));

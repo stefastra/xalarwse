@@ -174,7 +174,7 @@
             // 
             this.button3.Location = new System.Drawing.Point(194, 37);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(53, 23);
+            this.button3.Size = new System.Drawing.Size(68, 23);
             this.button3.TabIndex = 15;
             this.button3.Text = "Connect";
             this.button3.UseVisualStyleBackColor = true;
