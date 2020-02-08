@@ -19,21 +19,40 @@ namespace Xalarwse
         }
 
         SimpleTcpClient client;
-        public string userName = "user";
+        public static string userName = "user";
+        public static string ipAddress = "127.0.0.1";  //todo: refresh values on Form2 close
+        public static string port = "8910";
+
         public string receivedUserName = "other user";
         public Color receivedUserColor = Color.Blue;
         bool demoMode = true;
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.userAvatar.MouseHover += userAvatar_MouseHover;
+            this.userLabel.MouseHover += userAvatar_MouseHover;
+
+            comboBox1.SelectedItem = "Online";
             client = new SimpleTcpClient();
             client.StringEncoder = Encoding.UTF8;
             client.DataReceived += Client_DataReceived;
-            if (userName.Length <= 16)
+            try
+            {
+                client.Connect(ipAddress, Convert.ToInt32(8910));
+            }
+            catch
+            {
+                MessageBox.Show("A connection to Xalarwse servers could not be established." +
+                    "\nRunning in offline (demo) mode." +
+                    "\nContact an administrator or retry connection through the settings.",
+                    "Not Connected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Text = "Xalarwse (offline mode)";
+            }
+
+            if (userName.Length <= 12)
                 userLabel.Text = userName;
             else
-                userLabel.Text = userName.Substring(0, 15);
-            MessageBox.Show("You are not logged in. Please log in.");
+                userLabel.Text = userName.Substring(0, 11);
         }
 
         private void Client_DataReceived(object sender, SimpleTCP.Message e)
@@ -51,21 +70,25 @@ namespace Xalarwse
             });
         }
 
-        private void comboBox1_Load(object sender, EventArgs e)
+        private void userAvatar_MouseHover(object sender, EventArgs e)
         {
-            comboBox1.SelectedText = "Online";
+            System.Windows.Forms.ToolTip toolTipAvatar = new System.Windows.Forms.ToolTip();
+            toolTipAvatar.SetToolTip(this.userAvatar, "This is your current user avatar." +
+                " You can change it in the settings.");
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void userLabel_MouseHover(object sender, EventArgs e)
         {
-
+            System.Windows.Forms.ToolTip toolTipUsername = new System.Windows.Forms.ToolTip();
+            toolTipUsername.SetToolTip(this.userLabel, "This is your current user name." +
+                " You can change it in the settings.");
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
             if(demoMode)
             {
-                if (msgTextBox.Text!="") //TODO: button is gray unless text present in field
+                if (msgTextBox.Text!="")
                 {
                     mainTextBox.SelectionColor = Color.Green;
                     mainTextBox.AppendText($"{userName}: ");
@@ -78,24 +101,22 @@ namespace Xalarwse
             client.WriteLineAndGetReply(msgTextBox.Text,TimeSpan.FromSeconds(3));
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void msgTextBox_TextChanged(object sender, EventArgs e)
         {
-
+            if (msgTextBox.Text == "")
+            {
+                btnSend.Enabled = false;
+            }
+            else
+            {
+                btnSend.Enabled = true;
+            }
         }
 
-        private void button2_Click(object sender, EventArgs e) //button 2 = debug
+        private void btnOptions_Click(object sender, EventArgs e)
         {
-            mainTextBox.SelectionColor = receivedUserColor;
-            mainTextBox.AppendText("JaJ: ");
-            mainTextBox.SelectionColor = Color.Black;
-            mainTextBox.AppendText("geia xalarwse :-)" + "\n");
+            Form2 f2 = new Form2();
+            f2.ShowDialog();
         }
-
-        private void button3_Click(object sender, EventArgs e) //button 3 = connect button
-        {
-            button3.Enabled = false;
-            client.Connect(Convert.ToString("127.0.0.1"), Convert.ToInt32(8910)); //MUST TEST IP CONNECTION TO SERVER
-        }
-
     }
 }

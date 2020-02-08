@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.msgTextBox = new System.Windows.Forms.TextBox();
             this.mainTextBox = new System.Windows.Forms.RichTextBox();
@@ -39,10 +40,9 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
+            this.toolTipAvatar = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipUsername = new System.Windows.Forms.ToolTip(this.components);
+            this.btnOptions = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.userAvatar)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -54,7 +54,7 @@
             this.msgTextBox.Name = "msgTextBox";
             this.msgTextBox.Size = new System.Drawing.Size(244, 20);
             this.msgTextBox.TabIndex = 0;
-            this.msgTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.msgTextBox.TextChanged += new System.EventHandler(this.msgTextBox_TextChanged);
             // 
             // mainTextBox
             // 
@@ -77,14 +77,14 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(92, 21);
             this.comboBox1.TabIndex = 4;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // userLabel
             // 
             this.userLabel.AutoSize = true;
+            this.userLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
             this.userLabel.Location = new System.Drawing.Point(60, 19);
             this.userLabel.Name = "userLabel";
-            this.userLabel.Size = new System.Drawing.Size(53, 13);
+            this.userLabel.Size = new System.Drawing.Size(71, 17);
             this.userLabel.TabIndex = 5;
             this.userLabel.Text = "username";
             // 
@@ -108,7 +108,7 @@
             this.userAvatar.Location = new System.Drawing.Point(7, 19);
             this.userAvatar.Name = "userAvatar";
             this.userAvatar.Size = new System.Drawing.Size(47, 45);
-            this.userAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.userAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.userAvatar.TabIndex = 2;
             this.userAvatar.TabStop = false;
             // 
@@ -119,10 +119,11 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "version 0.1";
+            this.label2.Text = "version 0.2";
             // 
             // btnSend
             // 
+            this.btnSend.Enabled = false;
             this.btnSend.Location = new System.Drawing.Point(256, 22);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(53, 23);
@@ -136,9 +137,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(9, 517);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(171, 13);
+            this.label3.Size = new System.Drawing.Size(140, 13);
             this.label3.TabIndex = 9;
-            this.label3.Text = "Xalarwse Instant Messenger Demo";
+            this.label3.Text = "Xalarwse Instant Messenger";
             // 
             // groupBox2
             // 
@@ -151,53 +152,27 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Send a Message";
             // 
-            // button2
+            // btnOptions
             // 
-            this.button2.Location = new System.Drawing.Point(271, 37);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(51, 23);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "press";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(272, 21);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 13);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "*DEBUG*";
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(194, 37);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(68, 23);
-            this.button3.TabIndex = 15;
-            this.button3.Text = "Connect";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(179, 21);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(87, 13);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "Connect to Host:";
+            this.btnOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F, System.Drawing.FontStyle.Bold);
+            this.btnOptions.Image = global::Xalarwse.Properties.Resources.Icons8_Windows_8_Programming_Settings_3;
+            this.btnOptions.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOptions.Location = new System.Drawing.Point(197, 31);
+            this.btnOptions.Name = "btnOptions";
+            this.btnOptions.Size = new System.Drawing.Size(124, 45);
+            this.btnOptions.TabIndex = 17;
+            this.btnOptions.Text = "Options";
+            this.btnOptions.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOptions.UseVisualStyleBackColor = true;
+            this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
             // 
             // Form1
             // 
+            this.AcceptButton = this.btnSend;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(339, 536);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnOptions);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -207,6 +182,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Xalarwse";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
@@ -231,10 +207,9 @@
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ToolTip toolTipAvatar;
+        private System.Windows.Forms.ToolTip toolTipUsername;
+        private System.Windows.Forms.Button btnOptions;
     }
 }
 
