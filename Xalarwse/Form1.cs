@@ -19,13 +19,14 @@ namespace Xalarwse
         }
 
         SimpleTcpClient client;
-        public static string userName = "user";
-        public static string ipAddress = "127.0.0.1";  //todo: refresh values on Form2 close
-        public static string port = "8910";
+        private string windowName = "Xalarwse";
+        private string userName = "user";
+        private string ipAddress = "127.0.0.1";
+        private string port = "8910";
 
-        public string receivedUserName = "other user";
-        public Color receivedUserColor = Color.Blue;
-        bool demoMode = true;
+        private string receivedUserName = "other user";
+        private Color receivedUserColor = Color.Blue;
+        bool demoMode = false;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -38,15 +39,18 @@ namespace Xalarwse
             client.DataReceived += Client_DataReceived;
             try
             {
-                client.Connect(ipAddress, Convert.ToInt32(8910));
+                client.Connect(ipAddress, Convert.ToInt32(port));
+                demoMode = false;
             }
-            catch
+            catch (Exception)
             {
                 MessageBox.Show("A connection to Xalarwse servers could not be established." +
                     "\nRunning in offline (demo) mode." +
-                    "\nContact an administrator or retry connection through the settings.",
+                    "\nContact an administrator or retry connection.",
                     "Not Connected", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Text = "Xalarwse (offline mode)";
+                this.Text = windowName + " (offline mode)";
+                demoMode = true;
+                reconnectGroupBox.Visible = true;
             }
 
             if (userName.Length <= 12)
@@ -84,6 +88,12 @@ namespace Xalarwse
                 " You can change it in the settings.");
         }
 
+        private void btnReconnect_MouseHover(object sender, EventArgs e)
+        {
+            System.Windows.Forms.ToolTip toolTipReconnect = new System.Windows.Forms.ToolTip();
+            toolTipReconnect.SetToolTip(this.btnReconnect, "Click here to try to reconnect to Xalarwse Servers.");
+        }
+
         private void btnSend_Click(object sender, EventArgs e)
         {
             if(demoMode)
@@ -92,13 +102,27 @@ namespace Xalarwse
                 {
                     mainTextBox.SelectionColor = Color.Green;
                     mainTextBox.AppendText($"{userName}: ");
-                    mainTextBox.SelectionColor = Color.Black;
-                    mainTextBox.AppendText(msgTextBox.Text + "\n");
+                    mainTextBox.SelectionColor = Color.Red;
+                    mainTextBox.AppendText(msgTextBox.Text + " (Not Delivered)" + "\n");
                     msgTextBox.Text = "";
                 }
             }
             else
-            client.WriteLineAndGetReply(msgTextBox.Text,TimeSpan.FromSeconds(3));
+                try
+                {
+                    client.WriteLineAndGetReply(msgTextBox.Text, TimeSpan.FromSeconds(3));
+                    this.Text = windowName;
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("A connection to Xalarwse servers was terminated." +
+                    "\nSwitching to offline (demo) mode." +
+                    "\nContact an administrator or retry connection.",
+                    "Connection Terminated", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Text = windowName + " (offline mode)"; //PROGRESS BAR RECONNECTION!!!
+                    demoMode = true;
+                    reconnectGroupBox.Visible = true;  //todo: MAKE IT UPDATE IN INTERVALS INSTEAD OF SEND
+                }
         }
 
         private void msgTextBox_TextChanged(object sender, EventArgs e)
@@ -115,8 +139,41 @@ namespace Xalarwse
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            Form2 f2 = new Form2();
-            f2.ShowDialog();
+            Form2 form2 = new Form2(userName,ipAddress,port);
+            form2.FormClosed += new FormClosedEventHandler(form2_FormClosed);
+            form2.ShowDialog();
+        }
+
+        void form2_FormClosed(object sender, EventArgs e)
+        {
+            //load pic code here !!!!!!!!!!!!!!!!!
+            userName = Form2.s_userName;
+            userLabel.Text = userName;
+            ipAddress = Form2.s_ipAddress;
+            port = Form2.s_port;
+        }
+
+        private void btnReconnect_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                client.Connect(ipAddress, Convert.ToInt32(port));
+                demoMode = false;
+                reconnectGroupBox.Visible = false;
+                this.Text = windowName;
+                MessageBox.Show("Reconnection to Xalarwse servers successful." +
+                    "\nYou are now connected to Xalarwse servers." +
+                    "\nYou can send and receive messages.",
+                    "Reconnection Succeeded", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Reconnection to Xalarwse servers failed." +
+                    "\nContact an administrator or retry connection again.",
+                    "Reconnection Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Text = windowName + " (offline Mode)";
+                demoMode = true;
+            }
         }
     }
 }

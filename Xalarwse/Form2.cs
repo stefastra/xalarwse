@@ -12,20 +12,24 @@ namespace Xalarwse
 {
     public partial class Form2 : Form
     {
-        public Form2()
+        public Form2(string s_userName,string s_ipAddress,string s_port)
         {
             InitializeComponent();
-            textBoxUsername.Text = Form1.userName;
-            textBoxIP.Text = Form1.ipAddress;
-            textBoxPort.Text = Form1.port;
+            textBoxUsername.Text = s_userName;
+            textBoxIP.Text = s_ipAddress;
+            textBoxPort.Text = s_port;
         }
+
+        public static string s_userName;
+        public static string s_ipAddress;
+        public static string s_port;
 
         private void btnApply_Click(object sender, EventArgs e)
         {
-            Form1.userName = textBoxUsername.Text;
-            Form1.ipAddress = textBoxIP.Text; //todo: valid values only
-            Form1.port = textBoxPort.Text;
-
+            s_userName = textBoxUsername.Text;
+            s_ipAddress = textBoxIP.Text; //todo: valid values only
+            s_port = textBoxPort.Text;
+            this.Close();
         }
     }
 }
