@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SimpleTCP;
+using WatsonTcp;
 
 namespace Xalarwse
 {
@@ -18,28 +18,30 @@ namespace Xalarwse
             InitializeComponent();
         }
 
-        SimpleTcpClient client;
         private string windowName = "Xalarwse";
         private string userName = "user";
         private string ipAddress = "127.0.0.1";
         private string port = "8910";
+        WatsonTcpClient client = new WatsonTcpClient("127.0.0.1", 8910); //todo: link with variables
 
         private string receivedUserName = "other user";
         private Color receivedUserColor = Color.Blue;
+
         bool demoMode = false;
 
         private void Form1_Load(object sender, EventArgs e)
         {
             this.userAvatar.MouseHover += userAvatar_MouseHover;
             this.userLabel.MouseHover += userAvatar_MouseHover;
-
             comboBox1.SelectedItem = "Online";
-            client = new SimpleTcpClient();
-            client.StringEncoder = Encoding.UTF8;
-            client.DataReceived += Client_DataReceived;
+
+            client.ServerConnected = ServerConnected;
+            client.ServerDisconnected = ServerDisconnected;
+            client.MessageReceived = MessageReceived;
+
             try
             {
-                client.Connect(ipAddress, Convert.ToInt32(port));
+                client.Start();
                 demoMode = false;
             }
             catch (Exception)
@@ -59,21 +61,6 @@ namespace Xalarwse
                 userLabel.Text = userName.Substring(0, 11);
         }
 
-        private void Client_DataReceived(object sender, SimpleTCP.Message e)
-        {
-            mainTextBox.Invoke((MethodInvoker)delegate ()
-            {
-                if (!demoMode)
-                {
-                    mainTextBox.SelectionColor = receivedUserColor;
-                    mainTextBox.AppendText($"{receivedUserName}: ");
-                    mainTextBox.SelectionColor = Color.Black;
-                    mainTextBox.AppendText(e.MessageString + "\n");
-                    msgTextBox.Text = "";
-                }
-            });
-        }
-
         private void userAvatar_MouseHover(object sender, EventArgs e)
         {
             System.Windows.Forms.ToolTip toolTipAvatar = new System.Windows.Forms.ToolTip();
@@ -91,7 +78,7 @@ namespace Xalarwse
         private void btnReconnect_MouseHover(object sender, EventArgs e)
         {
             System.Windows.Forms.ToolTip toolTipReconnect = new System.Windows.Forms.ToolTip();
-            toolTipReconnect.SetToolTip(this.btnReconnect, "Click here to try to reconnect to Xalarwse Servers.");
+            toolTipReconnect.SetToolTip(this.btnReconnect, "Click here to reconnect to Xalarwse Servers.");
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -110,7 +97,8 @@ namespace Xalarwse
             else
                 try
                 {
-                    client.WriteLineAndGetReply(msgTextBox.Text, TimeSpan.FromSeconds(3));
+                    client.Send(Encoding.UTF8.GetBytes(msgTextBox.Text));
+                    msgTextBox.Text = "";
                     this.Text = windowName;
                 }
                 catch (Exception)
@@ -155,9 +143,9 @@ namespace Xalarwse
 
         private void btnReconnect_Click(object sender, EventArgs e)
         {
-            try
+            /*try
             {
-                client.Connect(ipAddress, Convert.ToInt32(port));
+                client.Connect(ipAddress, Convert.ToInt32(port)); //MAJOR BUG!!! MUST CHANGE EVERYTHING HERE
                 demoMode = false;
                 reconnectGroupBox.Visible = false;
                 this.Text = windowName;
@@ -173,7 +161,29 @@ namespace Xalarwse
                     "Reconnection Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Text = windowName + " (offline Mode)";
                 demoMode = true;
+            }*/
+        }
+
+        async Task MessageReceived(byte[] data)
+        {
+            if (!demoMode)
+            {
+                mainTextBox.SelectionColor = receivedUserColor;
+                mainTextBox.AppendText($"{receivedUserName}: ");
+                mainTextBox.SelectionColor = Color.Black;
+                mainTextBox.AppendText(Encoding.UTF8.GetString(data) + "\n");
             }
+
+        }
+
+        async Task ServerConnected()
+        {
+            mainTextBox.AppendText("Server connected");
+        }
+
+        async Task ServerDisconnected()
+        {
+            mainTextBox.AppendText("Server disconnected");
         }
     }
 }
