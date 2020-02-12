@@ -32,7 +32,7 @@
             this.textBoxUsername = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnChange = new System.Windows.Forms.Button();
-            this.userAvatar = new System.Windows.Forms.PictureBox();
+            this.userAvatarStng = new System.Windows.Forms.PictureBox();
             this.textBoxIP = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -40,7 +40,7 @@
             this.btnPing = new System.Windows.Forms.Button();
             this.connectionStatus = new System.Windows.Forms.RadioButton();
             this.btnApply = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.userAvatar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userAvatarStng)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxUsername
@@ -61,6 +61,7 @@
             // 
             // btnChange
             // 
+            this.btnChange.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.25F);
             this.btnChange.Location = new System.Drawing.Point(12, 63);
             this.btnChange.Name = "btnChange";
@@ -68,18 +69,19 @@
             this.btnChange.TabIndex = 6;
             this.btnChange.Text = "Change";
             this.btnChange.UseVisualStyleBackColor = true;
+            this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
             // 
-            // userAvatar
+            // userAvatarStng
             // 
-            this.userAvatar.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.userAvatar.Image = global::Xalarwse.Properties.Resources.default_avatar;
-            this.userAvatar.InitialImage = ((System.Drawing.Image)(resources.GetObject("userAvatar.InitialImage")));
-            this.userAvatar.Location = new System.Drawing.Point(12, 12);
-            this.userAvatar.Name = "userAvatar";
-            this.userAvatar.Size = new System.Drawing.Size(47, 45);
-            this.userAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.userAvatar.TabIndex = 3;
-            this.userAvatar.TabStop = false;
+            this.userAvatarStng.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.userAvatarStng.Image = global::Xalarwse.Properties.Resources.default_avatar;
+            this.userAvatarStng.InitialImage = ((System.Drawing.Image)(resources.GetObject("userAvatarStng.InitialImage")));
+            this.userAvatarStng.Location = new System.Drawing.Point(12, 12);
+            this.userAvatarStng.Name = "userAvatarStng";
+            this.userAvatarStng.Size = new System.Drawing.Size(47, 45);
+            this.userAvatarStng.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.userAvatarStng.TabIndex = 3;
+            this.userAvatarStng.TabStop = false;
             // 
             // textBoxIP
             // 
@@ -115,6 +117,7 @@
             // 
             // btnPing
             // 
+            this.btnPing.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnPing.Location = new System.Drawing.Point(12, 147);
             this.btnPing.Name = "btnPing";
             this.btnPing.Size = new System.Drawing.Size(56, 23);
@@ -135,6 +138,7 @@
             // 
             // btnApply
             // 
+            this.btnApply.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnApply.Location = new System.Drawing.Point(80, 147);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(120, 23);
@@ -145,6 +149,7 @@
             // 
             // Form2
             // 
+            this.AcceptButton = this.btnApply;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(207, 178);
@@ -158,16 +163,17 @@
             this.Controls.Add(this.btnChange);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxUsername);
-            this.Controls.Add(this.userAvatar);
+            this.Controls.Add(this.userAvatarStng);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form2";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Options";
             this.TopMost = true;
-            ((System.ComponentModel.ISupportInitialize)(this.userAvatar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userAvatarStng)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,7 +181,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox userAvatar;
+        private System.Windows.Forms.PictureBox userAvatarStng;
         private System.Windows.Forms.TextBox textBoxUsername;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnChange;

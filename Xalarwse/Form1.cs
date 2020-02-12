@@ -22,11 +22,12 @@ namespace Xalarwse
         private string userName = "user";
         private string ipAddress = "127.0.0.1";
         private string port = "8910";
-        WatsonTcpClient client = new WatsonTcpClient("127.0.0.1", 8910); //todo: link with variables
+        private string picFileName = "";
 
         private string receivedUserName = "other user";
         private Color receivedUserColor = Color.Blue;
 
+        WatsonTcpClient client = new WatsonTcpClient("127.0.0.1", 8910);
         bool demoMode = false;
 
         private void Form1_Load(object sender, EventArgs e)
@@ -54,11 +55,7 @@ namespace Xalarwse
                 demoMode = true;
                 reconnectGroupBox.Visible = true;
             }
-
-            if (userName.Length <= 12)
-                userLabel.Text = userName;
-            else
-                userLabel.Text = userName.Substring(0, 11);
+            usernamelabelchange(userName);
         }
 
         private void userAvatar_MouseHover(object sender, EventArgs e)
@@ -107,10 +104,18 @@ namespace Xalarwse
                     "\nSwitching to offline (demo) mode." +
                     "\nContact an administrator or retry connection.",
                     "Connection Terminated", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Text = windowName + " (offline mode)"; //PROGRESS BAR RECONNECTION!!!
+                    this.Text = windowName + " (offline mode)"; //todo: PROGRESS BAR RECONNECTION
                     demoMode = true;
                     reconnectGroupBox.Visible = true;  //todo: MAKE IT UPDATE IN INTERVALS INSTEAD OF SEND
                 }
+        }
+
+        private void usernamelabelchange(string username)
+        {
+            if (username.Length <= 12)
+                userLabel.Text = username;
+            else
+                userLabel.Text = username.Substring(0, 11);
         }
 
         private void msgTextBox_TextChanged(object sender, EventArgs e)
@@ -127,25 +132,35 @@ namespace Xalarwse
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2(userName,ipAddress,port);
+            Form2 form2 = new Form2(userName,ipAddress,port,picFileName);
+            form2.Owner = this;
             form2.FormClosed += new FormClosedEventHandler(form2_FormClosed);
-            form2.ShowDialog();
+            form2.Show();
+            btnOptions.Enabled = false;
         }
 
         void form2_FormClosed(object sender, EventArgs e)
         {
-            //load pic code here !!!!!!!!!!!!!!!!!
-            userName = Form2.s_userName;
-            userLabel.Text = userName;
-            ipAddress = Form2.s_ipAddress;
-            port = Form2.s_port;
+            btnOptions.Enabled = true;
+            if (!string.IsNullOrEmpty(Form2.s_userName))
+            {
+                userName = Form2.s_userName;
+                usernamelabelchange(Form2.s_userName);
+            }
+            if (!string.IsNullOrEmpty(Form2.s_ipAddress)) ipAddress = Form2.s_ipAddress;
+            if (!string.IsNullOrEmpty(Form2.s_port)) port = Form2.s_port;
+            if (!string.IsNullOrEmpty(Form2.s_picFileName))
+            {
+                picFileName = Form2.s_picFileName;
+                userAvatar.Image = Bitmap.FromFile(picFileName);
+            }
         }
 
         private void btnReconnect_Click(object sender, EventArgs e)
         {
-            /*try
+            try
             {
-                client.Connect(ipAddress, Convert.ToInt32(port)); //MAJOR BUG!!! MUST CHANGE EVERYTHING HERE
+                client.Start();
                 demoMode = false;
                 reconnectGroupBox.Visible = false;
                 this.Text = windowName;
@@ -161,7 +176,7 @@ namespace Xalarwse
                     "Reconnection Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Text = windowName + " (offline Mode)";
                 demoMode = true;
-            }*/
+            }
         }
 
         async Task MessageReceived(byte[] data)
