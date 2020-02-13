@@ -37,23 +37,23 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxPort = new System.Windows.Forms.TextBox();
-            this.btnPing = new System.Windows.Forms.Button();
-            this.connectionStatus = new System.Windows.Forms.RadioButton();
             this.btnApply = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.userAvatarStng)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxUsername
             // 
-            this.textBoxUsername.Location = new System.Drawing.Point(65, 37);
+            this.textBoxUsername.Location = new System.Drawing.Point(67, 27);
             this.textBoxUsername.Name = "textBoxUsername";
-            this.textBoxUsername.Size = new System.Drawing.Size(130, 20);
+            this.textBoxUsername.Size = new System.Drawing.Size(102, 20);
             this.textBoxUsername.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(65, 21);
+            this.label1.Location = new System.Drawing.Point(65, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 5;
@@ -63,11 +63,11 @@
             // 
             this.btnChange.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.25F);
-            this.btnChange.Location = new System.Drawing.Point(12, 63);
+            this.btnChange.Location = new System.Drawing.Point(10, 62);
             this.btnChange.Name = "btnChange";
             this.btnChange.Size = new System.Drawing.Size(47, 23);
             this.btnChange.TabIndex = 6;
-            this.btnChange.Text = "Change";
+            this.btnChange.Text = "Select";
             this.btnChange.UseVisualStyleBackColor = true;
             this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
             // 
@@ -76,7 +76,7 @@
             this.userAvatarStng.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.userAvatarStng.Image = global::Xalarwse.Properties.Resources.default_avatar;
             this.userAvatarStng.InitialImage = ((System.Drawing.Image)(resources.GetObject("userAvatarStng.InitialImage")));
-            this.userAvatarStng.Location = new System.Drawing.Point(12, 12);
+            this.userAvatarStng.Location = new System.Drawing.Point(10, 11);
             this.userAvatarStng.Name = "userAvatarStng";
             this.userAvatarStng.Size = new System.Drawing.Size(47, 45);
             this.userAvatarStng.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -85,24 +85,24 @@
             // 
             // textBoxIP
             // 
-            this.textBoxIP.Location = new System.Drawing.Point(12, 118);
+            this.textBoxIP.Location = new System.Drawing.Point(65, 66);
             this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(124, 20);
+            this.textBoxIP.Size = new System.Drawing.Size(125, 20);
             this.textBoxIP.TabIndex = 7;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 102);
+            this.label2.Location = new System.Drawing.Point(65, 50);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(118, 13);
+            this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 8;
-            this.label2.Text = "Main Server IP Address";
+            this.label2.Text = "IP Address";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(139, 102);
+            this.label3.Location = new System.Drawing.Point(193, 50);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 13);
             this.label3.TabIndex = 9;
@@ -110,52 +110,48 @@
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(142, 118);
+            this.textBoxPort.Location = new System.Drawing.Point(196, 66);
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(58, 20);
             this.textBoxPort.TabIndex = 10;
             // 
-            // btnPing
-            // 
-            this.btnPing.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnPing.Location = new System.Drawing.Point(12, 147);
-            this.btnPing.Name = "btnPing";
-            this.btnPing.Size = new System.Drawing.Size(56, 23);
-            this.btnPing.TabIndex = 11;
-            this.btnPing.Text = "Ping";
-            this.btnPing.UseVisualStyleBackColor = true;
-            // 
-            // connectionStatus
-            // 
-            this.connectionStatus.AutoSize = true;
-            this.connectionStatus.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.connectionStatus.Location = new System.Drawing.Point(80, 69);
-            this.connectionStatus.Name = "connectionStatus";
-            this.connectionStatus.Size = new System.Drawing.Size(115, 17);
-            this.connectionStatus.TabIndex = 12;
-            this.connectionStatus.Text = "Connection Status:";
-            this.connectionStatus.UseVisualStyleBackColor = true;
-            // 
             // btnApply
             // 
             this.btnApply.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnApply.Location = new System.Drawing.Point(80, 147);
+            this.btnApply.Location = new System.Drawing.Point(97, 107);
             this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(120, 23);
+            this.btnApply.Size = new System.Drawing.Size(81, 23);
             this.btnApply.TabIndex = 13;
-            this.btnApply.Text = "Apply Changes";
+            this.btnApply.Text = "Login";
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(175, 26);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(79, 21);
+            this.comboBox1.TabIndex = 14;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(175, 11);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Chat Color";
             // 
             // Form2
             // 
             this.AcceptButton = this.btnApply;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(207, 178);
+            this.ClientSize = new System.Drawing.Size(266, 142);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.btnApply);
-            this.Controls.Add(this.connectionStatus);
-            this.Controls.Add(this.btnPing);
             this.Controls.Add(this.textBoxPort);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -171,7 +167,7 @@
             this.Name = "Form2";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Options";
+            this.Text = "Login";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.userAvatarStng)).EndInit();
             this.ResumeLayout(false);
@@ -189,8 +185,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxPort;
-        private System.Windows.Forms.Button btnPing;
-        private System.Windows.Forms.RadioButton connectionStatus;
         private System.Windows.Forms.Button btnApply;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label4;
     }
 }

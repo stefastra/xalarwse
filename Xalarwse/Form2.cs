@@ -12,13 +12,19 @@ namespace Xalarwse
 {
     public partial class Form2 : Form
     {
-        public Form2(string s_userName,string s_ipAddress,string s_port,string s_picFileName)
+        private string userName = userdata.Default.userName;
+        private string ipAddress = userdata.Default.ipAddress;
+        private int port = userdata.Default.port;
+        private string picFileName = userdata.Default.picAddress;
+        private Color userColor = userdata.Default.userColor;
+
+        public Form2()
         {
             InitializeComponent();
-            textBoxUsername.Text = s_userName;
-            textBoxIP.Text = s_ipAddress;
-            textBoxPort.Text = s_port;
-            if (!string.IsNullOrEmpty(s_picFileName)) userAvatarStng.Image = Bitmap.FromFile(s_picFileName);
+            textBoxUsername.Text = userName;
+            textBoxIP.Text = ipAddress;
+            textBoxPort.Text = Convert.ToString(port);
+            if (!string.IsNullOrEmpty(s_picFileName)) userAvatarStng.Image = Bitmap.FromFile(picFileName);
         }
 
         public static string s_userName;
@@ -28,9 +34,9 @@ namespace Xalarwse
 
         private void btnApply_Click(object sender, EventArgs e)
         {
-            s_userName = textBoxUsername.Text;
-            s_ipAddress = textBoxIP.Text; //todo: valid values only
-            s_port = textBoxPort.Text;
+
+            Form1 form1 = new Form1();
+            form1.Show();
             this.Close();
         }
 

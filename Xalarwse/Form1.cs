@@ -13,32 +13,32 @@ namespace Xalarwse
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-        }
-
         private string windowName = "Xalarwse";
         private string userName = "user";
-        private string ipAddress = "127.0.0.1";
+        public static string ipAddress = "127.0.0.1";
         private string port = "8910";
         private string picFileName = "";
+        private bool demoMode = false;
+
+        public WatsonTcpClient client = new WatsonTcpClient(ipAddress, 8910);
 
         private string receivedUserName = "other user";
         private Color receivedUserColor = Color.Blue;
 
-        WatsonTcpClient client = new WatsonTcpClient("127.0.0.1", 8910);
-        bool demoMode = false;
-
-        private void Form1_Load(object sender, EventArgs e)
+        public Form1()
         {
-            this.userAvatar.MouseHover += userAvatar_MouseHover;
-            this.userLabel.MouseHover += userAvatar_MouseHover;
-            comboBox1.SelectedItem = "Online";
-
+            InitializeComponent();
             client.ServerConnected = ServerConnected;
             client.ServerDisconnected = ServerDisconnected;
             client.MessageReceived = MessageReceived;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            userAvatar.MouseHover += userAvatar_MouseHover;
+            userLabel.MouseHover += userAvatar_MouseHover;
+            comboBox1.SelectedItem = "Online";
+
 
             try
             {
@@ -51,7 +51,7 @@ namespace Xalarwse
                     "\nRunning in offline (demo) mode." +
                     "\nContact an administrator or retry connection.",
                     "Not Connected", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Text = windowName + " (offline mode)";
+                this.Text = windowName + " (offline mode)"; 
                 demoMode = true;
                 reconnectGroupBox.Visible = true;
             }
@@ -132,7 +132,7 @@ namespace Xalarwse
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2(userName,ipAddress,port,picFileName);
+            Form2 form2 = new Form2();
             form2.Owner = this;
             form2.FormClosed += new FormClosedEventHandler(form2_FormClosed);
             form2.Show();
@@ -193,12 +193,12 @@ namespace Xalarwse
 
         async Task ServerConnected()
         {
-            mainTextBox.AppendText("Server connected");
+            mainTextBox.AppendText("Connected to server\n");
         }
 
         async Task ServerDisconnected()
         {
-            mainTextBox.AppendText("Server disconnected");
+            mainTextBox.AppendText("Disconnected from server\n");
         }
     }
 }
