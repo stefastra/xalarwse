@@ -82,5 +82,17 @@ namespace Xalarwse {
                 this["picAddress"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool flag {
+            get {
+                return ((bool)(this["flag"]));
+            }
+            set {
+                this["flag"] = value;
+            }
+        }
     }
 }

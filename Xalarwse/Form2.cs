@@ -35,7 +35,12 @@ namespace Xalarwse
             userdata.Default.userName = textBoxUsername.Text;
             userdata.Default.ipAddress = textBoxIP.Text;
             userdata.Default.port = Convert.ToInt32(textBoxPort.Text);
-            
+
+            loadForm1();
+        }
+
+        private void loadForm1()
+        {
             Form1 form1 = new Form1();
             form1.FormClosed += form1_FormClosed;
             form1.Show();

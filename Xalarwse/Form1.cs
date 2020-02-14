@@ -60,7 +60,7 @@ namespace Xalarwse
                     {
                         demoMode = true;
                         this.Text = windowName + " (offline mode)";
-                        reconnectGroupBox.Visible = true;
+                        //reconnectGroupBox.Visible = true;
                     }
                 }
             }
@@ -145,25 +145,7 @@ namespace Xalarwse
         private void btnReconnect_Click(object sender, EventArgs e)
         {
             this.Close();
-            /*try
-            {
-                client.Start();
-                demoMode = false;
-                reconnectGroupBox.Visible = false;
-                this.Text = windowName;
-                MessageBox.Show("Reconnection to Xalarwse servers successful." +
-                    "\nYou are now connected to Xalarwse servers." +
-                    "\nYou can send and receive messages.",
-                    "Reconnection Succeeded", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Reconnection to Xalarwse servers failed." +
-                    "\nContact an administrator or retry connection again.",
-                    "Reconnection Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Text = windowName + " (offline Mode)";
-                demoMode = true;
-            }*/
+            //userdata.Default.flag = true;
         }
 
         async Task MessageReceived(byte[] data)
