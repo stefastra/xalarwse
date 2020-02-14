@@ -10,5 +10,7 @@ Made using WatsonTcp.
 -(Optional) Enter Host's port into the the field
 -Click Login
 
+![Preview](preview.png)
+
 ## Server
 Not yet publicly available.
