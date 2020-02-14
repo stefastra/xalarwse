@@ -2,19 +2,19 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Xalarwse" GeneratedClassName="userdata">
   <Profiles />
   <Settings>
-    <Setting Name="userName" Type="System.String" Scope="Application">
+    <Setting Name="userName" Type="System.String" Scope="User">
       <Value Profile="(Default)">user</Value>
     </Setting>
-    <Setting Name="userColor" Type="System.Drawing.Color" Scope="Application">
+    <Setting Name="userColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Blue</Value>
     </Setting>
-    <Setting Name="ipAddress" Type="System.String" Scope="Application">
+    <Setting Name="ipAddress" Type="System.String" Scope="User">
       <Value Profile="(Default)">127.0.0.1</Value>
     </Setting>
-    <Setting Name="port" Type="System.Int32" Scope="Application">
+    <Setting Name="port" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">8910</Value>
     </Setting>
-    <Setting Name="picAddress" Type="System.String" Scope="Application">
+    <Setting Name="picAddress" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

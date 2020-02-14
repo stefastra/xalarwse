@@ -129,10 +129,23 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "White",
+            "Black",
+            "Blue",
+            "Green",
+            "Lime",
+            "Navy",
+            "Orange",
+            "Yellow",
+            "Purple",
+            "Pink",
+            "Red"});
             this.comboBox1.Location = new System.Drawing.Point(175, 26);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(79, 21);
             this.comboBox1.TabIndex = 14;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -165,10 +178,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form2";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
-            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.userAvatarStng)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

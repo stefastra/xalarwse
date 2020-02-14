@@ -42,7 +42,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.toolTipAvatar = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipUsername = new System.Windows.Forms.ToolTip(this.components);
-            this.btnOptions = new System.Windows.Forms.Button();
             this.reconnectGroupBox = new System.Windows.Forms.GroupBox();
             this.btnReconnect = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -122,7 +121,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "version 0.5";
+            this.label2.Text = "version 0.6";
             // 
             // btnSend
             // 
@@ -155,26 +154,12 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Send a Message";
             // 
-            // btnOptions
-            // 
-            this.btnOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F, System.Drawing.FontStyle.Bold);
-            this.btnOptions.Image = global::Xalarwse.Properties.Resources.Icons8_Windows_8_Programming_Settings_3;
-            this.btnOptions.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOptions.Location = new System.Drawing.Point(197, 31);
-            this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(124, 45);
-            this.btnOptions.TabIndex = 17;
-            this.btnOptions.Text = "Options";
-            this.btnOptions.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnOptions.UseVisualStyleBackColor = true;
-            this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
-            // 
             // reconnectGroupBox
             // 
             this.reconnectGroupBox.Controls.Add(this.btnReconnect);
-            this.reconnectGroupBox.Location = new System.Drawing.Point(238, 391);
+            this.reconnectGroupBox.Location = new System.Drawing.Point(238, 16);
             this.reconnectGroupBox.Name = "reconnectGroupBox";
-            this.reconnectGroupBox.Size = new System.Drawing.Size(89, 60);
+            this.reconnectGroupBox.Size = new System.Drawing.Size(89, 67);
             this.reconnectGroupBox.TabIndex = 18;
             this.reconnectGroupBox.TabStop = false;
             this.reconnectGroupBox.Text = "Xalarwse Net";
@@ -184,7 +169,7 @@
             // 
             this.btnReconnect.Location = new System.Drawing.Point(8, 19);
             this.btnReconnect.Name = "btnReconnect";
-            this.btnReconnect.Size = new System.Drawing.Size(75, 35);
+            this.btnReconnect.Size = new System.Drawing.Size(75, 42);
             this.btnReconnect.TabIndex = 0;
             this.btnReconnect.Text = "Reconnect";
             this.btnReconnect.UseVisualStyleBackColor = true;
@@ -197,7 +182,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(339, 536);
             this.Controls.Add(this.reconnectGroupBox);
-            this.Controls.Add(this.btnOptions);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -235,7 +219,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ToolTip toolTipAvatar;
         private System.Windows.Forms.ToolTip toolTipUsername;
-        private System.Windows.Forms.Button btnOptions;
         private System.Windows.Forms.GroupBox reconnectGroupBox;
         private System.Windows.Forms.Button btnReconnect;
     }

@@ -13,17 +13,16 @@ namespace Xalarwse
 {
     public partial class Form1 : Form
     {
+        private string userName = userdata.Default.userName;
+        private static string ipAddress = userdata.Default.ipAddress;
+        private static int port = userdata.Default.port;
+        private string picAddress = userdata.Default.picAddress;
+        private Color userColor = userdata.Default.userColor;
+
         private string windowName = "Xalarwse";
-        private string userName = "user";
-        public static string ipAddress = "127.0.0.1";
-        private string port = "8910";
-        private string picFileName = "";
         private bool demoMode = false;
 
-        public WatsonTcpClient client = new WatsonTcpClient(ipAddress, 8910);
-
-        private string receivedUserName = "other user";
-        private Color receivedUserColor = Color.Blue;
+        public WatsonTcpClient client = new WatsonTcpClient(ipAddress, port);
 
         public Form1()
         {
@@ -35,27 +34,36 @@ namespace Xalarwse
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            comboBox1.SelectedItem = "Online";
+            userLabel.Text = usernameShorten(userName);
+            if (!string.IsNullOrEmpty(picAddress)) userAvatar.Image = Bitmap.FromFile(picAddress);
+
             userAvatar.MouseHover += userAvatar_MouseHover;
             userLabel.MouseHover += userAvatar_MouseHover;
-            comboBox1.SelectedItem = "Online";
 
-
-            try
+            bool isConnected = false;
+            while (!isConnected && !demoMode)
             {
-                client.Start();
-                demoMode = false;
+                try
+                {
+                    client.Start();
+                    isConnected = true;
+                }
+                catch (Exception)
+                {
+                    DialogResult result = MessageBox.Show("A connection to Xalarwse servers could not be established." +
+                        "\nSelect \"Retry\" to reattempt a connection to Xalarwse servers." +
+                        "\nSelect \"Cancel\" to cancel reconnection and launch the program in offline (demo) mode.  " +
+                        "\nYou can always restard the program later from offline (demo) mode.",
+                        "Not Connected", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                    if (result == DialogResult.Cancel)
+                    {
+                        demoMode = true;
+                        this.Text = windowName + " (offline mode)";
+                        reconnectGroupBox.Visible = true;
+                    }
+                }
             }
-            catch (Exception)
-            {
-                MessageBox.Show("A connection to Xalarwse servers could not be established." +
-                    "\nRunning in offline (demo) mode." +
-                    "\nContact an administrator or retry connection.",
-                    "Not Connected", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Text = windowName + " (offline mode)"; 
-                demoMode = true;
-                reconnectGroupBox.Visible = true;
-            }
-            usernamelabelchange(userName);
         }
 
         private void userAvatar_MouseHover(object sender, EventArgs e)
@@ -75,7 +83,8 @@ namespace Xalarwse
         private void btnReconnect_MouseHover(object sender, EventArgs e)
         {
             System.Windows.Forms.ToolTip toolTipReconnect = new System.Windows.Forms.ToolTip();
-            toolTipReconnect.SetToolTip(this.btnReconnect, "Click here to reconnect to Xalarwse Servers.");
+            toolTipReconnect.SetToolTip(this.btnReconnect, "Click here to restart the Messenger," +
+                " and attempt to reconnect to Xalarwse servers.");
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -84,7 +93,7 @@ namespace Xalarwse
             {
                 if (msgTextBox.Text!="")
                 {
-                    mainTextBox.SelectionColor = Color.Green;
+                    mainTextBox.SelectionColor = userColor;
                     mainTextBox.AppendText($"{userName}: ");
                     mainTextBox.SelectionColor = Color.Red;
                     mainTextBox.AppendText(msgTextBox.Text + " (Not Delivered)" + "\n");
@@ -95,27 +104,30 @@ namespace Xalarwse
                 try
                 {
                     client.Send(Encoding.UTF8.GetBytes(msgTextBox.Text));
+                    mainTextBox.SelectionColor = userColor;
+                    mainTextBox.AppendText($"{userName}: ");
+                    mainTextBox.SelectionColor = Color.Black;
+                    mainTextBox.AppendText(msgTextBox.Text + "\n");
                     msgTextBox.Text = "";
-                    this.Text = windowName;
                 }
                 catch (Exception)
                 {
                     MessageBox.Show("A connection to Xalarwse servers was terminated." +
                     "\nSwitching to offline (demo) mode." +
-                    "\nContact an administrator or retry connection.",
+                    "\nContact an administrator or restart application.",
                     "Connection Terminated", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Text = windowName + " (offline mode)"; //todo: PROGRESS BAR RECONNECTION
+                    this.Text = windowName + " (offline mode)";
                     demoMode = true;
-                    reconnectGroupBox.Visible = true;  //todo: MAKE IT UPDATE IN INTERVALS INSTEAD OF SEND
+                    reconnectGroupBox.Visible = true;
                 }
         }
 
-        private void usernamelabelchange(string username)
+        private string usernameShorten(string username)
         {
             if (username.Length <= 12)
-                userLabel.Text = username;
+                return username;
             else
-                userLabel.Text = username.Substring(0, 11);
+                return username.Substring(0, 12);
         }
 
         private void msgTextBox_TextChanged(object sender, EventArgs e)
@@ -129,36 +141,11 @@ namespace Xalarwse
                 btnSend.Enabled = true;
             }
         }
-
-        private void btnOptions_Click(object sender, EventArgs e)
-        {
-            Form2 form2 = new Form2();
-            form2.Owner = this;
-            form2.FormClosed += new FormClosedEventHandler(form2_FormClosed);
-            form2.Show();
-            btnOptions.Enabled = false;
-        }
-
-        void form2_FormClosed(object sender, EventArgs e)
-        {
-            btnOptions.Enabled = true;
-            if (!string.IsNullOrEmpty(Form2.s_userName))
-            {
-                userName = Form2.s_userName;
-                usernamelabelchange(Form2.s_userName);
-            }
-            if (!string.IsNullOrEmpty(Form2.s_ipAddress)) ipAddress = Form2.s_ipAddress;
-            if (!string.IsNullOrEmpty(Form2.s_port)) port = Form2.s_port;
-            if (!string.IsNullOrEmpty(Form2.s_picFileName))
-            {
-                picFileName = Form2.s_picFileName;
-                userAvatar.Image = Bitmap.FromFile(picFileName);
-            }
-        }
-
+         
         private void btnReconnect_Click(object sender, EventArgs e)
         {
-            try
+            this.Close();
+            /*try
             {
                 client.Start();
                 demoMode = false;
@@ -176,15 +163,15 @@ namespace Xalarwse
                     "Reconnection Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Text = windowName + " (offline Mode)";
                 demoMode = true;
-            }
+            }*/
         }
 
         async Task MessageReceived(byte[] data)
         {
             if (!demoMode)
             {
-                mainTextBox.SelectionColor = receivedUserColor;
-                mainTextBox.AppendText($"{receivedUserName}: ");
+                mainTextBox.SelectionColor = Color.Yellow;
+                mainTextBox.AppendText($"received: ");
                 mainTextBox.SelectionColor = Color.Black;
                 mainTextBox.AppendText(Encoding.UTF8.GetString(data) + "\n");
             }

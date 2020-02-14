@@ -23,48 +23,63 @@ namespace Xalarwse {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("user")]
         public string userName {
             get {
                 return ((string)(this["userName"]));
             }
+            set {
+                this["userName"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Blue")]
         public global::System.Drawing.Color userColor {
             get {
                 return ((global::System.Drawing.Color)(this["userColor"]));
             }
+            set {
+                this["userColor"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
         public string ipAddress {
             get {
                 return ((string)(this["ipAddress"]));
             }
+            set {
+                this["ipAddress"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("8910")]
         public int port {
             get {
                 return ((int)(this["port"]));
             }
+            set {
+                this["port"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string picAddress {
             get {
                 return ((string)(this["picAddress"]));
+            }
+            set {
+                this["picAddress"] = value;
             }
         }
     }
