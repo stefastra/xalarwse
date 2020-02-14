@@ -1,4 +1,14 @@
-# xalarwse-app
-A private messaging app
+# Xalarwse
+An instant messenger based around a single group.
 
-Don't look at it yet it's still very far from being finished.
+Made using WatsonTcp.
+
+## Client
+-Enter your preferred username
+-Select an Avatar picture
+-Enter Host's IP address into the field
+-(Optional) Enter Host's port into the the field
+-Click Login
+
+## Server
+Not yet publicly available.
