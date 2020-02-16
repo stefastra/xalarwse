@@ -1,7 +1,6 @@
 # xalarwse
 An instant messenger based around a single group.
-
-Made for fun using WatsonTcp.
+Made just for fun. You need WatsonTcp from NuGet to modify the code, but it is included in the executable's folder.
 
 ## Client
 - Enter your preferred username
