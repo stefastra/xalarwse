@@ -1,7 +1,7 @@
 # xalarwse
 An instant messenger based around a single group.
 
-Made using WatsonTcp.
+Made for fun using WatsonTcp.
 
 ## Client
 - Enter your preferred username
