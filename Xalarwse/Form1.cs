@@ -89,37 +89,43 @@ namespace Xalarwse
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            if(demoMode)
-            {
-                if (msgTextBox.Text!="")
+                if (demoMode)
                 {
-                    mainTextBox.SelectionColor = userColor;
-                    mainTextBox.AppendText($"{userName}: ");
-                    mainTextBox.SelectionColor = Color.Red;
-                    mainTextBox.AppendText(msgTextBox.Text + " (Not Delivered)" + "\n");
-                    msgTextBox.Text = "";
+                    if (msgTextBox.Text != "")
+                    {
+                        mainTextBox.SelectionColor = userColor;
+                        mainTextBox.AppendText($"{userName}: ");
+                        mainTextBox.SelectionColor = Color.Red;
+                        mainTextBox.AppendText(msgTextBox.Text + " (Not Delivered)" + "\n");
+                        msgTextBox.Text = "";
+                    }
                 }
-            }
-            else
-                try
-                {
-                    client.Send(Encoding.UTF8.GetBytes(msgTextBox.Text));
-                    mainTextBox.SelectionColor = userColor;
-                    mainTextBox.AppendText($"{userName}: ");
-                    mainTextBox.SelectionColor = Color.Black;
-                    mainTextBox.AppendText(msgTextBox.Text + "\n");
-                    msgTextBox.Text = "";
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("A connection to Xalarwse servers was terminated." +
-                    "\nSwitching to offline (demo) mode." +
-                    "\nContact an administrator or restart application.",
-                    "Connection Terminated", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Text = windowName + " (offline mode)";
-                    demoMode = true;
-                    reconnectGroupBox.Visible = true;
-                }
+                else
+                    try
+                    {
+                        Dictionary<object, object> metadata = new Dictionary<object, object>();//temp position
+                        metadata.Add(userName, userColor);
+                        client.Send(metadata, Encoding.UTF8.GetBytes(msgTextBox.Text));
+                        msgTextBox.Text = "";
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("A connection to Xalarwse servers was terminated." +
+                            "\nAttempting to Reconnect, if unsuccsesful, the program will" +
+                            "switch to offline (demo) mode." +
+                            "\nContact an administrator or restart application to reconnect.",
+                            "Connection Terminated", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        try
+                        {
+                             client.Start();
+                        }
+                        catch (Exception)
+                        {
+                            this.Text = windowName + " (offline mode)";
+                            demoMode = true;
+                            reconnectGroupBox.Visible = true;
+                        }
+                    }
         }
 
         private string usernameShorten(string username)
@@ -150,14 +156,32 @@ namespace Xalarwse
 
         async Task MessageReceived(byte[] data)
         {
-            if (!demoMode)
+            mainTextBox.SelectionColor = Color.Yellow;
+            mainTextBox.AppendText("unknown: ");
+            mainTextBox.SelectionColor = Color.Black;
+            mainTextBox.AppendText(Encoding.UTF8.GetString(data) + "\n");
+
+        }
+
+        async Task MessageReceivedWithMetadata(Dictionary<object, object> metadata,byte[] data)
+        {
+            if (metadata != null && metadata.Count > 0)
             {
-                mainTextBox.SelectionColor = Color.Yellow;
-                mainTextBox.AppendText($"received: ");
-                mainTextBox.SelectionColor = Color.Black;
-                mainTextBox.AppendText(Encoding.UTF8.GetString(data) + "\n");
+                foreach (KeyValuePair<object, object> curr in metadata)
+                {
+                    var effectiveColor = (Color)curr.Value;
+                    mainTextBox.SelectionColor = Color.Yellow; //temp, must user effectiveColor
+                }
             }
 
+            string msg = "";
+            if (data != null && data.Length > 0)
+            {
+                msg = Encoding.UTF8.GetString(data);
+                mainTextBox.SelectionColor = Color.Black;
+                foreach (KeyValuePair<object, object> curr in metadata)
+                    mainTextBox.AppendText($"{curr.Key}: {msg}\n");
+            }
         }
 
         async Task ServerConnected()
