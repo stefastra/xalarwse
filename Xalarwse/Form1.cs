@@ -30,6 +30,8 @@ namespace Xalarwse
             client.ServerConnected = ServerConnected;
             client.ServerDisconnected = ServerDisconnected;
             client.MessageReceived = MessageReceived;
+            client.MessageReceivedWithMetadata = MessageReceivedWithMetadata;
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -108,7 +110,7 @@ namespace Xalarwse
                         client.Send(metadata, Encoding.UTF8.GetBytes(msgTextBox.Text));
                         msgTextBox.Text = "";
                     }
-                    catch (Exception)
+                catch (Exception)
                     {
                         MessageBox.Show("A connection to Xalarwse servers was terminated." +
                             "\nAttempting to Reconnect, if unsuccsesful, the program will" +
@@ -124,7 +126,7 @@ namespace Xalarwse
                             this.Text = windowName + " (offline mode)";
                             demoMode = true;
                             reconnectGroupBox.Visible = true;
-                        }
+                    }
                     }
         }
 
@@ -169,11 +171,10 @@ namespace Xalarwse
             {
                 foreach (KeyValuePair<object, object> curr in metadata)
                 {
-                    var effectiveColor = (Color)curr.Value;
+                    //var effectiveColor = (Color)curr.Value;
                     mainTextBox.SelectionColor = Color.Yellow; //temp, must user effectiveColor
                 }
             }
-
             string msg = "";
             if (data != null && data.Length > 0)
             {
@@ -192,6 +193,11 @@ namespace Xalarwse
         async Task ServerDisconnected()
         {
             mainTextBox.AppendText("Disconnected from server\n");
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
         }
     }
 }

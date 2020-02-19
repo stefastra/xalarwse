@@ -121,14 +121,14 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "version 0.6";
+            this.label2.Text = "version 0.7";
             // 
             // btnSend
             // 
             this.btnSend.Enabled = false;
             this.btnSend.Location = new System.Drawing.Point(256, 22);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(53, 23);
+            this.btnSend.Size = new System.Drawing.Size(53, 20);
             this.btnSend.TabIndex = 8;
             this.btnSend.Text = "Send";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -193,6 +193,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Xalarwse";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
