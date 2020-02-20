@@ -9,7 +9,7 @@ Made just for fun. You need WatsonTcp from NuGet to modify the code, but it is i
 - Enter Host's port into the the field (Only if it is different from the default)
 - Click Login
 
-![Preview](preview.png)
+![Preview](preview2.png)
 
 ## Server
 ***NOTE: Not yet publicly available.***
