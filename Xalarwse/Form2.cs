@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Xalarwse
 {
@@ -15,7 +18,21 @@ namespace Xalarwse
         public Form2()
         {
             InitializeComponent();
-            textBoxUsername.Text = userdata.Default.userName; //todo SAVE CHANGES TO FILE
+
+            /*UserData userData = new UserData()
+            {
+                c_userName = "user",
+                c_userColor = "Blue",
+                c_picAddress = "",
+                c_ipAddress = "127.0.0.1",
+                c_port = "8910"
+            };*/
+
+            string readJson;
+            readJson = File.ReadAllText(@"userdata.json");
+            UserData test1 = JsonConvert.DeserializeObject<UserData>(readJson);// TEST CODE
+
+            textBoxUsername.Text = userdata.Default.userName; //todo READ DATA FROM JSON FILE
             textBoxIP.Text = userdata.Default.ipAddress;
             textBoxPort.Text = Convert.ToString(userdata.Default.port);
             if (!string.IsNullOrEmpty(userdata.Default.picAddress)) userAvatarStng.Image = Bitmap.FromFile(userdata.Default.picAddress);
@@ -45,6 +62,7 @@ namespace Xalarwse
             form1.FormClosed += form1_FormClosed;
             form1.Show();
             Visible = false;
+
         }
 
         private void form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -70,4 +88,14 @@ namespace Xalarwse
             userdata.Default.userColor = Color.FromName(temp);
         }
     }
+
+    public class UserData
+    {
+        public string c_userName { get; set; }
+        public string c_userColor { get; set; }
+        public string c_picAddress { get; set; }
+        public string c_ipAddress { get; set; }
+        public string c_port { get; set; }
+    }
+
 }
