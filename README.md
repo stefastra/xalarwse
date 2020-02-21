@@ -20,9 +20,9 @@ Made just for fun. You need WatsonTcp from NuGet to modify the code, but it is i
 - Click the Start button to establish the server
 
 ## To-Do
-- ~~Make it actually work as a group chat~~ ✓
 - Add functionality to the 'colors' feature
 - Add a menu where you can see all connected users
 - Add saving of userdata inbetween uses
 - Redo the UI and make it look nice
-- Clean up the code and increase security with encryption
+- Clean up the code and increase security with encryption-
+~~Make it actually work as a group chat~~ ✓
