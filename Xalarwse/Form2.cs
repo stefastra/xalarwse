@@ -23,7 +23,7 @@ namespace Xalarwse
             readJson = File.ReadAllText(@"userdata.json");
             UserData test1 = JsonConvert.DeserializeObject<UserData>(readJson);
 
-            textBoxUsername.Text = test1.c_userName; //todo SAVE THE DATA!
+            textBoxUsername.Text = test1.c_userName; //todo SAVE THE DATA
             textBoxIP.Text = test1.c_ipAddress;
             textBoxPort.Text = test1.c_port;
             if (!string.IsNullOrEmpty(test1.c_picAddress)) userAvatarStng.Image = Bitmap.FromFile(test1.c_picAddress);
