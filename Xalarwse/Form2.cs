@@ -19,24 +19,15 @@ namespace Xalarwse
         {
             InitializeComponent();
 
-            /*UserData userData = new UserData()
-            {
-                c_userName = "user",
-                c_userColor = "Blue",
-                c_picAddress = "",
-                c_ipAddress = "127.0.0.1",
-                c_port = "8910"
-            };*/
-
             string readJson;
             readJson = File.ReadAllText(@"userdata.json");
-            UserData test1 = JsonConvert.DeserializeObject<UserData>(readJson);// TEST CODE
+            UserData test1 = JsonConvert.DeserializeObject<UserData>(readJson);
 
-            textBoxUsername.Text = userdata.Default.userName; //todo READ DATA FROM JSON FILE
-            textBoxIP.Text = userdata.Default.ipAddress;
-            textBoxPort.Text = Convert.ToString(userdata.Default.port);
-            if (!string.IsNullOrEmpty(userdata.Default.picAddress)) userAvatarStng.Image = Bitmap.FromFile(userdata.Default.picAddress);
-            comboBox1.SelectedItem = colorConvert(userdata.Default.userColor);
+            textBoxUsername.Text = test1.c_userName; //todo SAVE THE DATA!
+            textBoxIP.Text = test1.c_ipAddress;
+            textBoxPort.Text = test1.c_port;
+            if (!string.IsNullOrEmpty(test1.c_picAddress)) userAvatarStng.Image = Bitmap.FromFile(test1.c_picAddress);
+            comboBox1.SelectedItem = colorConvert(userdata.Default.userColor);//pending change
         }
 
         private string colorConvert(Color userColor)
