@@ -15,14 +15,15 @@ namespace Xalarwse
     {
         private string userName = userdata.Default.userName;
         private static string ipAddress = userdata.Default.ipAddress;
-        private static int port = userdata.Default.port;
+        private static string port = userdata.Default.port;
         private string picAddress = userdata.Default.picAddress;
-        private Color userColor = userdata.Default.userColor;
+        private string userColor = userdata.Default.userColor;
+        private Color userColorSys = Color.Blue;
 
         private string windowName = "Xalarwse";
         private bool demoMode = false;
 
-        public WatsonTcpClient client = new WatsonTcpClient(ipAddress, port);
+        public WatsonTcpClient client = new WatsonTcpClient(ipAddress, Convert.ToInt32(port));
 
         public Form1()
         {
@@ -40,6 +41,8 @@ namespace Xalarwse
             userLabel.Text = usernameShorten(userName);
             if (!string.IsNullOrEmpty(picAddress)) userAvatar.Image = Bitmap.FromFile(picAddress);
 
+            userColorSys = Color.FromName(userColor);
+            
             userAvatar.MouseHover += userAvatar_MouseHover;
             userLabel.MouseHover += userAvatar_MouseHover;
 
@@ -62,7 +65,7 @@ namespace Xalarwse
                     {
                         demoMode = true;
                         this.Text = windowName + " (offline mode)";
-                        //reconnectGroupBox.Visible = true;
+                        //reconnectGroupBox.Visible = true; DISABLED
                     }
                 }
             }
@@ -95,7 +98,7 @@ namespace Xalarwse
                 {
                     if (msgTextBox.Text != "")
                     {
-                        mainTextBox.SelectionColor = userColor;
+                        mainTextBox.SelectionColor = userColorSys;
                         mainTextBox.AppendText($"{userName}: ");
                         mainTextBox.SelectionColor = Color.Red;
                         mainTextBox.AppendText(msgTextBox.Text + " (Not Delivered)" + "\n");
@@ -105,7 +108,7 @@ namespace Xalarwse
                 else
                     try
                     {
-                        Dictionary<object, object> metadata = new Dictionary<object, object>();//temp position
+                        Dictionary<object, object> metadata = new Dictionary<object, object>();
                         metadata.Add(userName, userColor);
                         client.Send(metadata, Encoding.UTF8.GetBytes(msgTextBox.Text));
                         msgTextBox.Text = "";
@@ -153,7 +156,7 @@ namespace Xalarwse
         private void btnReconnect_Click(object sender, EventArgs e)
         {
             this.Close();
-            //userdata.Default.flag = true;
+            //userdata.Default.flag = true; DISABLED
         }
 
         async Task MessageReceived(byte[] data)
@@ -167,12 +170,12 @@ namespace Xalarwse
 
         async Task MessageReceivedWithMetadata(Dictionary<object, object> metadata,byte[] data)
         {
+            mainTextBox.AppendText("pog:\n");
             if (metadata != null && metadata.Count > 0)
             {
                 foreach (KeyValuePair<object, object> curr in metadata)
                 {
-                    //var effectiveColor = (Color)curr.Value;
-                    mainTextBox.SelectionColor = Color.Yellow; //temp, must user effectiveColor
+                    mainTextBox.SelectionColor = Color.FromName(curr.Value.ToString()); //fails, need invoke on async task(?)
                 }
             }
             string msg = "";

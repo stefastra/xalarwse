@@ -61,8 +61,8 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="WatsonTcp, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WatsonTcp.2.2.0\lib\net461\WatsonTcp.dll</HintPath>
+    <Reference Include="WatsonTcp, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WatsonTcp.2.2.2\lib\net461\WatsonTcp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

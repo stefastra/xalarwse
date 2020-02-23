@@ -21,16 +21,22 @@ namespace Xalarwse
 
             string readJson;
             readJson = File.ReadAllText(@"userdata.json");
-            UserData test1 = JsonConvert.DeserializeObject<UserData>(readJson);
+            UserData data = JsonConvert.DeserializeObject<UserData>(readJson);
 
-            textBoxUsername.Text = test1.c_userName; //todo SAVE THE DATA
-            textBoxIP.Text = test1.c_ipAddress;
-            textBoxPort.Text = test1.c_port;
-            if (!string.IsNullOrEmpty(test1.c_picAddress)) userAvatarStng.Image = Bitmap.FromFile(test1.c_picAddress);
-            comboBox1.SelectedItem = colorConvert(userdata.Default.userColor);//pending change
+            textBoxUsername.Text = data.c_userName;
+            textBoxIP.Text = data.c_ipAddress;
+            textBoxPort.Text = data.c_port;
+            if (!string.IsNullOrEmpty(data.c_picAddress)) userAvatarStng.Image = Bitmap.FromFile(data.c_picAddress);
+            comboBox1.SelectedItem = data.c_userColor;
+
+            userdata.Default.userName = data.c_userName;
+            userdata.Default.ipAddress = data.c_ipAddress;
+            userdata.Default.port = data.c_port;
+            userdata.Default.userColor = data.c_userColor;
+            userdata.Default.picAddress = data.c_picAddress;
         }
 
-        private string colorConvert(Color userColor)
+        private string colorConvertToString(Color userColor)
         {
             string userColorStr = userColor.ToString();
             userColorStr = userColorStr.Remove(0,7);
@@ -42,8 +48,18 @@ namespace Xalarwse
         {
             userdata.Default.userName = textBoxUsername.Text;
             userdata.Default.ipAddress = textBoxIP.Text;
-            userdata.Default.port = Convert.ToInt32(textBoxPort.Text);
+            userdata.Default.port = textBoxPort.Text;
 
+            UserData data = new UserData()
+            {
+                c_userName = userdata.Default.userName,
+                c_userColor = userdata.Default.userColor,
+                c_ipAddress = userdata.Default.ipAddress,
+                c_port = userdata.Default.port,
+                c_picAddress = userdata.Default.picAddress
+            };
+
+            File.WriteAllText(@"userdata.json", JsonConvert.SerializeObject(data));
             loadForm1();
         }
 
@@ -53,7 +69,6 @@ namespace Xalarwse
             form1.FormClosed += form1_FormClosed;
             form1.Show();
             Visible = false;
-
         }
 
         private void form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -75,8 +90,7 @@ namespace Xalarwse
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string temp = comboBox1.SelectedItem.ToString();
-            userdata.Default.userColor = Color.FromName(temp);
+            userdata.Default.userColor = comboBox1.SelectedItem.ToString();
         }
     }
 

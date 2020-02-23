@@ -121,7 +121,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "version 0.7";
+            this.label2.Text = "version 0.8";
             // 
             // btnSend
             // 

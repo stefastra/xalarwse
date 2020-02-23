@@ -38,9 +38,9 @@ namespace Xalarwse {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Blue")]
-        public global::System.Drawing.Color userColor {
+        public string userColor {
             get {
-                return ((global::System.Drawing.Color)(this["userColor"]));
+                return ((string)(this["userColor"]));
             }
             set {
                 this["userColor"] = value;
@@ -62,9 +62,9 @@ namespace Xalarwse {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("8910")]
-        public int port {
+        public string port {
             get {
-                return ((int)(this["port"]));
+                return ((string)(this["port"]));
             }
             set {
                 this["port"] = value;
