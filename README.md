@@ -12,17 +12,18 @@ Made just for fun. You need WatsonTcp from NuGet to modify the code, but it is i
 ![Preview](preview2.png)
 
 ## Server
-***NOTE: Not yet publicly available.***
+***NOTE: Source code for server not yet publicly available.***
 **Defaults: IP: 0.0.0.0 (accessible via your external IPV4 address or your local IPV4 address) Port: 8910**
 *You must forward the port to your computer's LAN network IP from your router settings.*
 
-- (Optional) Change the IP/Port to whatever you desire
-- Click the Start button to establish the server
+- (Optional) Change the IP/Port to whatever you desire [\[Inactive for the moment]\]
+- Click the Start button to establish the server [\[0.0.0.0 Only for now]\]
 
 ## To-Do
 ~~Make it actually work as a group chat~~ ✓
-- Add functionality to the 'colors' feature
+- ~~Add functionality to the 'colors' feature~~ ✓\[bugged, must update package\]
+- Update client and server to WatsonTcp version 3
 - Add a menu where you can see all connected users
-- Add saving of userdata inbetween uses
+- ~~Add saving of userdata inbetween uses~~ ✓
 - Redo the UI and make it look nice
 - Clean up the code and increase security with encryption-
