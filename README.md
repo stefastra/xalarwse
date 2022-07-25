@@ -1,6 +1,5 @@
 # xalarwse
-An instant messenger based around a single group.
-Made just for fun. You need WatsonTcp from NuGet to modify the code, but it is included in the executable's folder.
+Made just for fun. You need the WatsonTcp package from NuGet to modify the code, but it is included in the executable's folder.
 To be used to escape from total Facebook hegemony.
 
 ## Client
@@ -15,7 +14,7 @@ To be used to escape from total Facebook hegemony.
 ## Server
 ***NOTE: Source code for server not yet publicly available.***
 **Defaults: IP: 0.0.0.0 (accessible via your external IPV4 address or your local IPV4 address) Port: 8910**
-*You must forward the port to your computer's LAN network IP from your router settings.*
+*Since the server is hosted locally, you must forward the port to your computer's LAN network IP from your router settings so that users outside your home network may connect*
 
 - (Optional) Change the IP/Port to whatever you desire [\[Inactive for the moment]\]
 - Click the Start button to establish the server [\[0.0.0.0 Only for now]\]
